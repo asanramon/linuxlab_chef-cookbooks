@@ -1,0 +1,2 @@
+## Allow members of the admins group to run any commands anywhere
+%admins   ALL=(ALL)       ALL
