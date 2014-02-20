@@ -37,17 +37,17 @@ service "named" do
 	action [:enable,:start]
 end
 
-bash "open_firewall" do
-	code <<-EOH
-		chain=$(cat /etc/sysconfig/iptables | grep "^-A INPUT -p udp -m state --state NEW -m udp --dport 53 -j ACCEPT")
-		if [ -z "$chain" ]; then
-		        iptables -I INPUT -m state --state NEW -m udp -p udp --dport 53 -j ACCEPT
-		        service iptables save
-		fi
-		chain=$(cat /etc/sysconfig/iptables | grep "^-A INPUT -p tcp -m state --state NEW -m tcp --dport 53 -j ACCEPT")
-		if [ -z "$chain" ]; then
-		        iptables -I INPUT  -m state --state NEW -m tcp -p tcp --dport 53 -j ACCEPT
-		        service iptables save
-		fi
-	EOH
-end
+#bash "open_firewall" do
+#	code <<-EOH
+#		chain=$(cat /etc/sysconfig/iptables | grep "^-A INPUT -p udp -m state --state NEW -m udp --dport 53 -j ACCEPT")
+#		if [ -z "$chain" ]; then
+#		        iptables -I INPUT -m state --state NEW -m udp -p udp --dport 53 -j ACCEPT
+#		        service iptables save
+#		fi
+#		chain=$(cat /etc/sysconfig/iptables | grep "^-A INPUT -p tcp -m state --state NEW -m tcp --dport 53 -j ACCEPT")
+#		if [ -z "$chain" ]; then
+#		        iptables -I INPUT  -m state --state NEW -m tcp -p tcp --dport 53 -j ACCEPT
+#		        service iptables save
+#		fi
+#	EOH
+#end

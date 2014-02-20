@@ -16,3 +16,12 @@ end
 service "dhcpd" do
 	action [:enable,:start]
 end
+
+hosts = data_bag('dhcp_hosts')
+hosts.each do |item|
+	host = data_bag_item('dhcp_hosts',item)
+	puts host['id']
+	puts host['hostname']
+	puts host['mac_address']
+	puts host['ip_address']
+end

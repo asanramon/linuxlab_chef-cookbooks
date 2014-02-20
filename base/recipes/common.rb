@@ -73,3 +73,12 @@ cron "chef-run" do
 	user "root"
 	hour "6"
 end
+
+template "/etc/sysconfig/iptables" do
+	source "iptables.erb"
+	notifies :restart,"service[iptables]"
+end
+
+service "iptables" do
+	action :nothing
+end

@@ -7,13 +7,13 @@
 #
 package "ntp"
 
-cookbook_file "/etc/ntp.conf" do
-	source "ntp.conf"
+template "/etc/ntp.conf" do
+	source "ntp.conf.erb"
 	notifies :restart,"service[ntpd]"
 end
 
-cookbook_file "/etc/sysconfig/iptables" do
-	source "iptables"
+template "/etc/sysconfig/iptables" do
+	source "iptables.erb"
 	notifies :restart,"service[iptables]"
 end
 
