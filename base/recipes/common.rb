@@ -8,6 +8,7 @@
 #
 package "openssh-clients"
 package "tcpdump"
+package "bind-utils"
 
 chef_gem "ruby-shadow" do
 	action :install

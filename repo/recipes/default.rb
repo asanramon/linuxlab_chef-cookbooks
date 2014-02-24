@@ -69,12 +69,12 @@ service "httpd" do
 	action [:enable,:start]
 end
 
-template "/etc/sysconfig/iptables" do
-	source "iptables.erb"
-	notifies :restart,"service[iptables]"
-end
+#template "/etc/sysconfig/iptables" do
+#	source "iptables.erb"
+#	notifies :restart,"service[iptables]"
+#end
 
-service "iptables" do
-	action :nothing
-end
+#service "iptables" do
+#	action :nothing
+#end
 

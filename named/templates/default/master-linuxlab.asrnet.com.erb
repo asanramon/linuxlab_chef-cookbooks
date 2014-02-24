@@ -1,0 +1,14 @@
+$TTL 3D
+@       IN      SOA     <%= node[:fqdn] %>. root.<%= node[:domain] %>. (
+        201401071       ; serial #
+        4H              ; refresh
+        1H              ; retry
+        1W              ; expiry
+        1D              ; minimum-ttl
+)
+@               IN      NS      <%= node[:fqdn] %>.
+<% hosts = Chef::DataBag.load('dhcp_hosts') %>
+<% hosts.each do |item| %>
+<% host = Chef::DataBagItem.load('dhcp_hosts',item.first) %>
+<%= host['id'] %>		IN	A	<%= host['ip_address'] %>
+<% end %>
