@@ -17,3 +17,9 @@ name=CentOS-$releasever - Extras
 baseurl=http://<%= node['repo_server'] %>/centos/$releasever/extras/$basearch/
 gpgcheck=0
 #gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+
+[custom]
+name=CentOS-$releasever - Custom
+baseurl=http://<%= node['repo_server'] %>/centos/custom/
+gpgcheck=0
+#gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
