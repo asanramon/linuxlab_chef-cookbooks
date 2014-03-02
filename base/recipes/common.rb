@@ -6,6 +6,11 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+
+template "/etc/yum.repos.d/linuxlab.repo" do
+	source "linuxlab.repo.erb"
+end
+
 package "openssh-clients"
 package "tcpdump"
 package "bind-utils"
@@ -63,10 +68,6 @@ ruby_block "rename default repo" do
 			::File.rename("/etc/yum.repos.d/CentOS-Base.repo","/etc/yum.repos.d/CentOS-Base.repo.orig")
 		end
 	end
-end
-
-template "/etc/yum.repos.d/linuxlab.repo" do
-	source "linuxlab.repo.erb"
 end
 
 cron "chef-run" do

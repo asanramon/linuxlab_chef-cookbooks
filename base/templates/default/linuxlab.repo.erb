@@ -1,25 +1,25 @@
 [base]
 name=CentOS-$releasever - Base
-baseurl=http://<%= node['repo_server'] %>/centos/$releasever/os/$basearch/
+baseurl=https://<%= node['repo_server'] %>/centos/$releasever/os/$basearch/
 gpgcheck=0
 #gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 
 #released updates
 [updates]
 name=CentOS-$releasever - Updates
-baseurl=http://<%= node['repo_server'] %>/centos/$releasever/updates/$basearch/
+baseurl=https://<%= node['repo_server'] %>/centos/$releasever/updates/$basearch/
 gpgcheck=0
 #gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 
 #additional packages that may be useful
 [extras]
 name=CentOS-$releasever - Extras
-baseurl=http://<%= node['repo_server'] %>/centos/$releasever/extras/$basearch/
+baseurl=https://<%= node['repo_server'] %>/centos/$releasever/extras/$basearch/
 gpgcheck=0
 #gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 
 [custom]
 name=CentOS-$releasever - Custom
-baseurl=http://<%= node['repo_server'] %>/centos/custom/
+baseurl=https://<%= node['repo_server'] %>/centos/custom/
 gpgcheck=0
 #gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
