@@ -7,12 +7,17 @@ ddns-update-style interim;
 
 subnet 10.10.2.0 netmask 255.255.255.0
 {
+        allow booting;
+        allow bootp;
+
         range 10.10.2.50 10.10.2.254;
         option subnet-mask 255.255.255.0;
         option broadcast-address 10.10.2.255;
         option domain-name "linuxlab.asrnet.com";
         option domain-name-servers 10.10.2.2;
         option routers 10.10.2.1;
+		filename "/pxelinux.0";
+		next-server <%= node['pxe_server'] %>;
 
 	<% hosts = Chef::DataBag.load('dhcp_hosts') %>
 	<% hosts.each do |item| %>

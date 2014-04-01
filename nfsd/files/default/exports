@@ -1,0 +1,5 @@
+/data/personal_data     10.10.1.0/24(rw,sync)
+/data/entertainment     10.10.1.0/24(rw,sync)
+/data/downloads         10.10.1.0/24(rw,sync)
+/data/repo              repo.linuxlab.asrnet.com(rw,sync,no_root_squash)
+/data/jenkins           jenkins.linuxlab.asrnet.com(rw,sync,no_root_squash)

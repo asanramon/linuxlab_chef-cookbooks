@@ -10,6 +10,16 @@ package "rsync"
 package "mod_ssl"
 package "httpd"
 package "createrepo"
+package "nfs-utils"
+
+ruby_block "mount_repo_share" do
+	block do
+		file = Chef::Util::FileEdit.new("/etc/fstab")
+		file.insert_line_if_no_match("^10.10.2.19:/data/repo.*$", "10.10.2.19:/data/repo\t/repo\t\t\tnfs\tdefaults\t0 0")
+		file.write_file
+		`mount -a`
+	end
+end
 
 directory "/repo/centos/6.5" do
 	owner "root"
@@ -39,7 +49,7 @@ link "/var/www/html/centos" do
 end
 
 cron "sync_with_mirror" do
-	command "rsync -avHPS rsync://mirrors.rit.edu/centos/6.5/ /repo/centos/6.5/"
+	command "rsync -avHPS --exclude \"*.iso\" rsync://mirrors.rit.edu/centos/6.5/ /repo/centos/6.5/ > /tmp/repo_rsync.log 2>&1"
 	weekday 0
 	hour 23
 end
@@ -70,17 +80,17 @@ cookbook_file "/etc/pki/tls/private/ca.csr" do
 	source "ca.csr"
 end
 
-cookbook_file "/etc/httpd/conf.d/repo.conf" do
-	source "repo.conf"
-	notifies :restart, "service[httpd]"
-end
-
 ruby_block "rename_ssl_conf" do
 	block do
 		if ::File.file?("/etc/httpd/conf.d/ssl.conf")
 			::File.rename("/etc/httpd/conf.d/ssl.conf","/etc/httpd/conf.d/ssl.conf.orig")
 		end
 	end
+end
+
+cookbook_file "/etc/httpd/conf.d/repo.conf" do
+	source "repo.conf"
+	notifies :restart, "service[httpd]"
 end
 
 service "httpd" do

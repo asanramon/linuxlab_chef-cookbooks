@@ -11,6 +11,18 @@ template "/etc/yum.repos.d/linuxlab.repo" do
 	source "linuxlab.repo.erb"
 end
 
+cookbook_file "/etc/pki/tls/certs/repo.crt" do
+	source "ca.crt"
+end
+
+ruby_block "set_repo_cert" do
+	block do
+		file = Chef::Util::FileEdit.new("/etc/yum.conf")
+		file.insert_line_if_no_match("^sslcacert = .*$", 'sslcacert = /etc/pki/tls/certs/repo.crt')
+		file.write_file
+	end
+end
+
 package "openssh-clients"
 package "tcpdump"
 package "bind-utils"
@@ -51,10 +63,8 @@ group "admins" do
 end
 
 # Create auto logoff script
-cookbook_file "/etc/profile.d/autologoff.sh" do
-	source "autologoff.sh"
-	owner "root"
-	action :create_if_missing
+template "/etc/profile.d/autologoff.sh" do
+	source "autologoff.sh.erb"
 end
 
 cookbook_file "/etc/sudoers.d/sudo_admins" do
